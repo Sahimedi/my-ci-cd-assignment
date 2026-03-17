@@ -10,7 +10,7 @@ else
 fi
 
 # Test 2: Verify CI/CD content in HTML
-if grep -q "CI/CD PIPELINE" index.html; then
+if grep -q "CI/CD Pipeline" index.html; then
   echo "Test 2 PASSED: CI/CD content verified"
 else
   echo "TEST FAILED: Missing CI/CD Pipeline text"
