@@ -1,0 +1,49 @@
+name: "CI/CD Pipeline - Assignment Complete"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: "1. Checkout source code"
+      uses: actions/checkout@v4
+    
+    - name: "2. List all files"
+      run: |
+        echo "Repository files:"
+        ls -la
+        echo ""
+        echo "index.html preview:"
+        head -15 index.html
+    
+    - name: "3. Setup Node.js environment"
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    
+    - name: "4. Install dependencies and build"
+      run: |
+        npm install
+        npm run build
+        echo "Build complete - artifacts ready"
+    
+    - name: "5. Run automated tests"
+      run: |
+        chmod +x test.sh
+        ./test.sh
+    
+    - name: "6. Pipeline finished successfully"
+      run: |
+        echo "CI/CD Pipeline SUCCESS!"
+        echo "All stages completed:"
+        echo "- Checkout: PASS"
+        echo "- List files: PASS"
+        echo "- Setup: PASS"
+        echo "- Build: PASS"
+        echo "- Tests: PASS"
